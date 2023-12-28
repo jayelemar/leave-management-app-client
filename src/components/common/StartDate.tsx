@@ -23,8 +23,9 @@ const StartDate: FC<StartDateProps> = () => {
     const [date, setDate] = React.useState<Date>()
 
     return (
-        <div className="flex justify-start items-start sm:items-center gap-2 flex-col sm:flex-row my-3">
-            <label htmlFor="" className="mr-2">Start Date:</label>
+        <div className="flex justify-start items-start md:items-center gap-2 flex-col md:flex-row my-3">
+            <label htmlFor="" className="mr-2 lg:relative lg:bottom-3">Start Date:</label>
+            <div className="flex flex-col sm:flex-row lg:flex-col justify-center items-start sm:items-center lg:items-start gap-2">
             <div>
                 <Popover>
                     <PopoverTrigger asChild>
@@ -60,6 +61,7 @@ const StartDate: FC<StartDateProps> = () => {
                         <Label htmlFor="half-day">Half Day</Label>
                     </div>
                 </RadioGroup>
+            </div>
             </div>
         </div>
     )
