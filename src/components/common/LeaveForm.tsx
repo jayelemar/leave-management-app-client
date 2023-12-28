@@ -17,13 +17,17 @@ interface LeaveFormProps {
 
 const LeaveForm: FC<LeaveFormProps> = () => {
     return (
-        <Card className="m-4 p-4">
-            <SelectLeaveType />
-            <StartDate />
-            <EndDate />
-            <ReasonTextbox />
-            <InputDuration />
-            <ContactDetail />
+        <Card className="m-10 p-4 flex flex-col lg:flex-row">
+            <div className="">
+                <SelectLeaveType />
+                <StartDate />
+                <EndDate />
+                <ReasonTextbox />
+                <InputDuration />
+            </div>
+            <div>
+            <ContactDetail/>
+            </div>
 
 
         </Card>

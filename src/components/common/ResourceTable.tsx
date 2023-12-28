@@ -23,7 +23,7 @@ const ResourceTable: FC<ResourceTableProps> = () => {
         <Card className="m-10 p-4">
             <Table>
                 <TableCaption>PeopleSoft ID 45122771</TableCaption>
-                <TableHeader className="bg-blue-500 ">
+                <TableHeader className="bg-primary ">
                     <TableRow>  
                         {leaveHeader.map((head) => {
                             return (
