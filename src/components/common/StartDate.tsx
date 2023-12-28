@@ -32,7 +32,7 @@ const StartDate: FC<StartDateProps> = () => {
                         <Button
                             variant={"outline"}
                             className={cn(
-                                "w-[280px] justify-start text-left font-normal  ml-4",
+                                "w-[280px] justify-start text-left font-normal ml-4",
                                 !date && "text-muted-foreground"
                             )}
                         >
