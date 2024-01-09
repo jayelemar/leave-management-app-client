@@ -21,6 +21,22 @@ interface EndDateProps {
 const EndDate: FC<EndDateProps> = () => {
     const [date, setDate] = React.useState<Date>()
 
+    const [ isCalendarOpen, setIsCalendarOpen ] = React.useState(false);
+    
+    const closeCalendar = () => {
+        setIsCalendarOpen(false)
+    };
+
+    const openCalendar = () => {
+        setIsCalendarOpen(true)
+    }
+
+    const handleDayClick = (clickedDate: Date) => {
+        console.log("clickedDate:", clickedDate);
+        setDate(clickedDate)
+        closeCalendar();
+    };
+
     return (
         <div className="flex justify-start items-start md:items-center gap-[15px] flex-col md:flex-row my-3">
         <label htmlFor="" className="mr-2 lg:relative lg:bottom-3">End Date:</label>
@@ -34,19 +50,23 @@ const EndDate: FC<EndDateProps> = () => {
                             "w-[280px] justify-start text-left font-normal ml-4",
                             !date && "text-muted-foreground"
                         )}
+                        onClick={openCalendar}
                     >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {date ? format(date, "PPP") : <span>Pick a date</span>}
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
-                    <Calendar
-                        mode="single"
-                        selected={date}
-                        onSelect={setDate}
-                        initialFocus
-                    />
-                </PopoverContent>
+                {isCalendarOpen && (
+                        <PopoverContent className="w-auto p-0">
+                        <Calendar
+                            mode="single"
+                            initialFocus
+                            required
+                            selected={date}
+                            onDayClick={handleDayClick}
+                        />
+                    </PopoverContent>
+                    )}
             </Popover>
         </div>
         <div className="ml-4">
