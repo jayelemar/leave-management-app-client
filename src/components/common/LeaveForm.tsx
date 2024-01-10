@@ -17,12 +17,10 @@ interface LeaveFormProps {
 
 
 const LeaveForm: FC<LeaveFormProps> = () => {
-    const onSubmit = () => {
-        
-    };
+
     return (
         <Card className="m-10 p-4 flex flex-col lg:flex-row">
-            <form onSubmit={onSubmit}>
+            <form >
                 <div className="">
                     <SelectLeaveType />
                     <StartDate />

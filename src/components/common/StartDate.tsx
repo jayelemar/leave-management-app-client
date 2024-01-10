@@ -31,7 +31,7 @@ const StartDate: FC<StartDateProps> = () => {
     }
 
     const handleDayClick = (clickedDate: Date) => {
-        console.log("clickedDate:", clickedDate);
+        console.log("clicked StartDate:", clickedDate);
         setDate(clickedDate)
         closeCalendar();
     };
