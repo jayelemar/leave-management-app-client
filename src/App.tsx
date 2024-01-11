@@ -1,29 +1,23 @@
-
-// import LeaveForm from "./components/common/LeaveForm"
-// import ResourceTable from "./components/common/ResourceTable"
 import Modal from "react-modal"
-import Calendar from "./components/common/Calendar";
-import {LeaveRequestForm} from "./components/common/LeaveRequestForm";
-import { Card } from "./components/ui/card";
-// import SelectLeaveType from "./components/common/SelectLeaveType";
+import { Route, Routes } from "react-router-dom";
+import { Footer, Header } from "./components/common";
+import Home from "./pages/home/Home";
+import NotFound from "./pages/404/NotFound";
+
+
 
 Modal.setAppElement('#root');
 
-
 const App = () => {
-  const start = new Date ("2024-01-02T16:00:00.000Z")
-  const end = new Date ("2024-01-05T16:00:00.000Z")
 
   return (
     <>
-    <Card className="m-8 p-8">
-    <LeaveRequestForm/>
-    {/* <SelectLeaveType/> */}
-    </Card>
-    <div className="w-1/2">
-      
-      <Calendar start={start} end={end} title="title props"/>
-    </div>
+      <Header/>
+        <Routes>
+          <Route path="/" element={<Home/>}/>
+          <Route path="*" element={<NotFound/>}/>
+        </Routes>
+      <Footer/>
     </>
   )
 }

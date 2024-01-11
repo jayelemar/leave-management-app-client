@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,4 +60,57 @@
   body {
     @apply bg-background text-foreground;
   }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
+
+
+
+* {
+  font-family: "Poppins", sans-serif;
+
+  @apply m-0 p-0 box-border scroll-smooth;
+}
+
+html {
+  @apply text-base;
+}
+
+body {
+  font-family: "Poppins", "sans-serif";
+
+}
+header, footer, section, aside{
+  @apply justify-center w-full;
+}
+
+.container, nav {
+  max-width: 1280px;
+  @apply m-auto;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  @apply text-6xl;
+}
+h2 {
+  @apply text-5xl
+}
+h3 {
+@apply text-4xl
+}
+h4 {
+  @apply text-3xl
+}
+p {
+  @apply text-base font-light leading-5;
+}
+
