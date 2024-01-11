@@ -1,3 +1,15 @@
+export interface LeaveTypeProps {
+    value: string;
+    label: string;
+    unit: string; // Add this property
+    eligitibility: string;
+    pending: number;
+    approved: number;
+    balance: number;
+    expirationDate: string;
+  }
+
+
 export const leaveHeader = [
     "Leave Type",
     "Unit",

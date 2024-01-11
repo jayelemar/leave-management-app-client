@@ -20,6 +20,9 @@ module.exports = {
       screens: {
         'xs': '480px',  
       },
+      fontFamily: {
+        'poppins': ['Poppins', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -54,6 +57,8 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        darkGrey: '#3f3d56',
+        solidGreen: '#16a34a',
       },
       borderRadius: {
         lg: "var(--radius)",

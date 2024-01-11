@@ -26,6 +26,10 @@ import { cn } from "@/lib/utils"
 import { CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { Calendar } from "../ui/calendar"
+import { useState } from "react"
+import { Textarea } from "../ui/textarea"
+import { Input } from "../ui/input"
+import { phoneRegex } from "@/utils/phoneRegex"
 
 
 
@@ -34,19 +38,34 @@ const FormSchema = z.object({
       required_error: "Please select a leave type.",
   }),
   startDate: z.date({
-    required_error: "Please select a leave type.",
+    required_error: "Please select a starting date.",
   }),
   endDate: z.date({
-    required_error: "Please select a leave type.",
+    required_error: "Please select a ending date.",
   }),
+  reason: z
+    .string()
+    .min(5, {
+      message: "Reason must be at least 5 characters.",
+    })
+    .max(160, {
+      message: "Reason must not be longer than 160 characters.",
+  }),
+  contactAddress: z
+    .string()
+    .min(5, {
+      message: "Reason must be at least 5 characters.",
+    })
+    .max(160, {
+      message: "Reason must not be longer than 160 characters.",
+  }),
+  contactNumber: z.string().regex(phoneRegex, 'Invalid Number')
 })
 
 export function LeaveRequestForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
-
-  const startDateValue = form.watch("startDate")
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -58,6 +77,29 @@ export function LeaveRequestForm() {
       ),
     })
   }
+  
+  // Daye Picker Functions
+  const startDateValue = form.watch("startDate")
+  const endDateValue = form.watch("endDate")
+  const [isStartCalendarOpen, setIsStartCalendarOpen] = useState(false);
+
+  const closeStartCalendar = () => {
+    setIsStartCalendarOpen(false);
+  };
+
+  const openStartCalendar = () => {
+    setIsStartCalendarOpen(true);
+  };
+
+  const [isEndCalendarOpen, setIsEndCalendarOpen] = useState(false);
+
+  const closeEndCalendar = () => {
+    setIsEndCalendarOpen(false);
+  };
+
+  const openEndCalendar = () => {
+    setIsEndCalendarOpen(true);
+  };
 
   return (
     <Form {...form}>
@@ -109,6 +151,7 @@ export function LeaveRequestForm() {
                         "w-[240px] pl-3 text-left font-normal",
                         !field.value && "text-muted-foreground"
                       )}
+                      onClick={openStartCalendar}
                     >
                       {field.value ? (
                         format(field.value, "PPP")
@@ -119,17 +162,21 @@ export function LeaveRequestForm() {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    // disabled={(date) =>
-                    //   date > new Date() || date < new Date("1900-01-01")
-                    // }
-                    initialFocus
-                  />
-                </PopoverContent>
+
+                {isStartCalendarOpen && (
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > endDateValue || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                        onDayClick={closeStartCalendar}
+                      />
+                    </PopoverContent>
+                )}
               </Popover>
               <FormMessage />
             </FormItem>
@@ -153,6 +200,7 @@ export function LeaveRequestForm() {
                         "w-[240px] pl-3 text-left font-normal",
                         !field.value && "text-muted-foreground"
                       )}
+                      onClick={openEndCalendar}
                     >
                       {field.value ? (
                         format(field.value, "PPP")
@@ -163,25 +211,79 @@ export function LeaveRequestForm() {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date < startDateValue || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
+                    
+                    {isEndCalendarOpen && (
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date < startDateValue || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                          onDayClick={closeEndCalendar}
+                        />
+                      </PopoverContent>         
+                      )}
               </Popover>
               <FormMessage />
             </FormItem>
             )
           }}
-        
         />
 
+        {/* Reason Textbox */}
+        <FormField
+          control={form.control}
+          name="reason"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Reason:</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Write a comment..."
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Contact Address */}
+        <FormField
+          control={form.control}
+          name="contactAddress"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Contact Address:</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Write a contact address..."
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="contactNumber"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Contact Number</FormLabel>
+              <FormControl>
+                <Input placeholder="0926 000 0000" type="text" {...field} pattern="\d*" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
       
         <Button type="submit">Submit</Button>
