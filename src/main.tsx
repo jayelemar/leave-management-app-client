@@ -7,15 +7,25 @@ import { Toaster } from './components/ui/toaster.tsx'
 import store from './redux/store.ts'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import axios from 'axios'
+import { ToastContainer } from 'react-toastify'
 
 
+axios.defaults.withCredentials = true;
+
+const queryCLient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-          <App />
-          <Toaster/>
+          <QueryClientProvider client={queryCLient}>
+            <App />
+            <ToastContainer/>
+            <Toaster/>
+          </QueryClientProvider>
+
       </BrowserRouter>
     </Provider>
 
