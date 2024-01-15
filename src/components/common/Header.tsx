@@ -5,19 +5,19 @@ import { NavLink } from "react-router-dom"
 const Header = () => {
   return (
     <header>
-      <div className="container h-16 max-w-1000 flex justify-between items-center relative mx-2 px-4">
+      <div className="container h-16 max-w-1000 flex justify-between items-center relative mx-2 px-4 z-50">
         <Logo/>
 
         <nav className="hidden lg:flex gap-x-7">
             <NavLink 
               to='/' 
-              className={({ isActive }) => isActive ? 'text-orange-400 underline underline-offset-4' : '' }
+              className={({ isActive }) => isActive ? 'text-rose-500 underline underline-offset-4' : '' }
             >
               Home
             </NavLink>
             <NavLink 
               to='/dashboard'
-              className={({ isActive }) => isActive ?  'text-orange-400 underline underline-offset-4' : ''}
+              className={({ isActive }) => isActive ?  'text-rose-500 underline underline-offset-4' : ''}
             >
               Dashboard
             </NavLink>
@@ -27,7 +27,7 @@ const Header = () => {
         <div className="hidden lg:flex">
           <NavLink 
             to='/register'
-            className={({ isActive }) => isActive ?  'text-orange-400 underline underline-offset-4' : ''}
+            className={({ isActive }) => isActive ?  'text-rose-500 underline underline-offset-4' : ''}
           >
             Register
           </NavLink>
