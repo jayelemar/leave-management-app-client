@@ -10,9 +10,12 @@ import { Button } from '@/components/ui/button'
 import { Eye, EyeOff } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import Image1 from '@/assets/home-image.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Label } from '@/components/ui/label'
+import { useLoginUser } from '@/services/authServices'
+import { useDispatch } from 'react-redux'
+import { actions } from '@/redux/features/auth/authSlice'
 
 const FormSchema = z.object({
   email: z
@@ -25,14 +28,17 @@ const FormSchema = z.object({
 
 
 const Home: FC= () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
     },
-  })
+  }) 
+  const { mutateAsync: LoginMutation } = useLoginUser();
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
       title: "You submitted the following values:",
       description: (
@@ -41,6 +47,20 @@ const Home: FC= () => {
         </pre>
       ),
     })
+
+    try {
+      const response = await LoginMutation(data)
+      console.log(response)
+      await dispatch(actions.SET_LOGIN(true))
+      await dispatch(actions.SET_NAME(response.name))
+      navigate("/dashboard")
+      return response.data
+
+      
+    } catch (error) {
+      console.log(error)
+    }
+
   }
 
   const [showPassword, setShowPassword] = useState(false);

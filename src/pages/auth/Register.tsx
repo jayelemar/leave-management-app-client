@@ -1,8 +1,6 @@
-// bunch of imports
-import { toast } from "@/components/ui/use-toast";
 import { useRegisterUser } from "@/services/authServices"
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import registerImage from "@/assets/register.svg"
@@ -12,6 +10,13 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { actions, selectName } from "@/redux/features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast as toastify } from "react-toastify";
+
+
 
 const FormSchema = z.object({
   name: z
@@ -28,6 +33,11 @@ const FormSchema = z.object({
 
 
 const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const name = useSelector(selectName)
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -37,8 +47,8 @@ const Register = () => {
     },
   })
 
-  const { mutate: RegisterMutation } = useRegisterUser();
 
+  const {mutateAsync:RegisterMutation, isPending } = useRegisterUser();
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
       title: "You submitted the following values:",
@@ -48,24 +58,36 @@ const Register = () => {
         </pre>
       ),
     });
-  
+    console.log("Submitting form with data:", data)
     try {
-      await RegisterMutation(data);
-      console.log("Registration successful!");
+
+      const response = await RegisterMutation(data);
+      console.log("data from DB", response.name);
+      dispatch(actions.SET_NAME(response.name))
+      
+
+      toastify.success("User Registrated Successfully")
+      navigate("/")
+
     } catch (error) {
-      console.log("registration failed", error);
+      console.error("Registration failed", error);
+
     }
   }
-
-  const [showPassword, setShowPassword] = useState(false);
   
+  useEffect(() => {
+    console.log("redux name is:", name);
+  }, [name])
+
   return (
+    
     <section>
-      <div className="w-screen flex flex-row-reverse md:justify-center gap-x-4 md:px-4 h-[450px]">
+      {isPending ? <p>Loading....</p> : null}
+      <div className="container flex flex-row-reverse justify-center items-center h-[570px] xs:h-[450px]">
         <div className="hidden md:flex md:justify-between animate-slide-down">
           <img src={registerImage} alt="img1" width="400px" />
         </div>
-        <Card className='flex justify-center items-center mx-4 md:w-[400px] mb-4 h-[500px] md:h-[430px] animate-slide-up shadow-lg'>
+        <Card className='flex justify-center items-center mx-4 w-[400px] mb-4 h-[430px] animate-slide-up shadow-lg'>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-3">
               <Label className='flex items-center justify-center text-2xl'>Register</Label>
@@ -134,7 +156,7 @@ const Register = () => {
                 )}
               </div>
                 
-              <Button type="submit" className='w-full '>Register</Button>
+              <Button type="submit" className='w-full'>Register</Button>
             </form>
           </Form>
         </Card>

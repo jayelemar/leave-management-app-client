@@ -10,6 +10,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
 axios.defaults.withCredentials = true;
@@ -18,12 +20,14 @@ const queryCLient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+
     <Provider store={store}>
       <BrowserRouter>
           <QueryClientProvider client={queryCLient}>
             <App />
             <ToastContainer/>
             <Toaster/>
+            <ReactQueryDevtools />
           </QueryClientProvider>
 
       </BrowserRouter>
