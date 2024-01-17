@@ -5,11 +5,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
+import { useResetPassword } from "@/services/authServices"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Eye, EyeOff } from "lucide-react"
+import { ChevronLeft, Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { toast as toastify } from "react-toastify"
 import { z } from "zod"
 
 const FormSchema = z.object({
@@ -22,12 +24,15 @@ const PasswordMatchSchema = FormSchema.refine(data => data.confirmPassword === d
 });
 
 const ResetPassword = () => {
+  const { mutateAsync: ResetPasswordMutation } = useResetPassword();
+  const { resetToken } = useParams<{resetToken?: string }>()
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(PasswordMatchSchema),
   })
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
       title: "You submitted the following values:",
       description: (
@@ -36,6 +41,15 @@ const ResetPassword = () => {
         </pre>
       ),
     })
+
+    if (resetToken !== undefined) {
+      const response = await ResetPasswordMutation({ data, resetToken });
+      toastify.success(response.message);
+      navigate('/')
+    } else {
+      // Handle the case where resetToken is undefined
+      console.error("resetToken is undefined");
+    }
   }
 
   const [showPassword, setShowPassword] = useState(false);
@@ -44,7 +58,7 @@ const ResetPassword = () => {
   return (
     <section>
           <img src={ResetImage} alt="img1" width="400px" className="animate-slide-down hidden md:flex"/>
-        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-lg '>
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-none md:shadow-lg border-none'>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-3">
               <Label className='flex items-center justify-center text-2xl'>Reset Password</Label>
@@ -111,7 +125,7 @@ const ResetPassword = () => {
               </div>
                 
               <Button type="submit" className='w-full '>Reset Password</Button>
-              <Link to='/'className='text-xs text-darkGrey'>Back to Home</Link>
+              <Link to='/'className='text-base font-normal flex text-slate-500'><ChevronLeft size={23} />Home</Link>
             </form>
           </Form>
         </Card>

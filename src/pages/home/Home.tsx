@@ -84,7 +84,7 @@ const Home: FC= () => {
 
         <img src={Image1} alt="img1" width="430px" className='hidden md:flex animate-slide-down' />
 
-        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-lg '>
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-none md:shadow-lg border-none '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
               <Label className='flex items-center justify-center text-2xl'>Login</Label>
@@ -114,7 +114,7 @@ const Home: FC= () => {
 
                     </FormControl>
                     <FormDescription>
-                      <Link to='/forgotpassword' className='text-sm'>Forget password?</Link>
+                      <Link to='/forgotpassword' className='text-base font-normal text-slate-500'>Forget password?</Link>
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

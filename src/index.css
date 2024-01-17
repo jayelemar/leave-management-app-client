@@ -86,6 +86,9 @@ body {
 section {
   @apply w-full flex justify-center md:flex-row gap-x-4 md:px-4;
 }
+main {
+  @apply flex items-center flex-grow;
+}
 
 
 h1, h2, h3, h4 {

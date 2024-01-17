@@ -15,7 +15,8 @@ interface AuthState {
 }
 
 // get name from localStorage
-const name = JSON.parse(localStorage.getItem("name") ?? "")
+const storedName = localStorage.getItem("name");
+const name = storedName ? JSON.parse(storedName) : "";
 
 const initialState: AuthState = {
     isLoggedIn: false,
@@ -47,6 +48,16 @@ const authSlice = createSlice({
                 ...state.user,
                 ...profile
             };
+        },
+        LOGOUT_USER(state) {
+            state.isLoggedIn = false;
+            state.name = "";
+            state.user = {
+                name: "",
+                email: "",
+            };
+            // Clear name from local storage
+            localStorage.removeItem("name");
         },
 
     }

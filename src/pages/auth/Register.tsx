@@ -60,8 +60,8 @@ const Register = () => {
       ),
     });
     console.log("Submitting form with data:", data)
+    
     try {
-
       const response = await RegisterMutation(data);
       console.log("data from DB", response.name);
       dispatch(actions.SET_NAME(response.name))
@@ -88,7 +88,7 @@ const Register = () => {
         
         <img src={registerImage} alt="img1" width="400px" className="hidden md:flex animate-slide-down"/>
 
-        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[450px] mb-4 h-[500px] md:h-[500px] shadow-lg '>
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[450px] mb-4 h-[500px] md:h-[500px] shadow-none md:shadow-lg border-none '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-3">
               <Label className='flex items-center justify-center text-2xl'>Register</Label>

@@ -32,7 +32,7 @@ const App = () => {
               <Register/>
             </Suspense>
           }/>
-          <Route path="/resetpassword" element={
+          <Route path="/resetpassword/:resetToken" element={
             <Suspense fallback={ <Loader/> }>
               <ResetPassword/>
             </Suspense>}
@@ -50,9 +50,7 @@ const App = () => {
           <Route path="/dashboard" element={
             <Suspense fallback={ <Loader/> }>
               <Sidebar>
-                <Layout>
                   <Dashboard/>
-                </Layout>
               </Sidebar>
             </Suspense>}
           />
