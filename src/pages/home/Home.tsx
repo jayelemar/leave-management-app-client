@@ -16,6 +16,9 @@ import { Label } from '@/components/ui/label'
 import { useLoginUser } from '@/services/authServices'
 import { useDispatch } from 'react-redux'
 import { actions } from '@/redux/features/auth/authSlice'
+import { toast as toastify } from 'react-toastify'
+import Loader from '@/components/common/Loader'
+
 
 const FormSchema = z.object({
   email: z
@@ -26,17 +29,18 @@ const FormSchema = z.object({
   password: z.string(),
 })
 
-
 const Home: FC= () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
     },
   }) 
-  const { mutateAsync: LoginMutation } = useLoginUser();
+
+  const { mutateAsync: LoginMutation, isPending } = useLoginUser();
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -46,19 +50,22 @@ const Home: FC= () => {
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
-    })
+    }) 
 
     try {
-      const response = await LoginMutation(data)
-      console.log(response)
-      await dispatch(actions.SET_LOGIN(true))
-      await dispatch(actions.SET_NAME(response.name))
-      navigate("/dashboard")
-      return response.data
+      const response = await LoginMutation(data);
+      console.log("data from DB", response.name);
+      dispatch(actions.SET_NAME(response.name))
+      setTimeout(() => { 
+        console.log("redux name is :", name); 
+     }, 0);
 
-      
+      toastify.success("User Login Successfully")
+      navigate("/dashboard")
+
     } catch (error) {
-      console.log(error)
+      console.error("Registration failed", error);
+
     }
 
   }
@@ -71,12 +78,13 @@ const Home: FC= () => {
   })
 
   return (
-    <main>
-      <div className="w-screen flex flex-col md:flex-row md:justify-center gap-x-4 md:px-4 h-[450px]">
-        <div className="animate-slide-down hidden md:flex md:justify-between">
-          <img src={Image1} alt="img1" width="430px" />
-        </div>
-        <Card className='animate-slide-up flex justify-center items-center mx-4 md:w-[400px] mb-4 h-[500px] md:h-[430px] shadow-lg '>
+
+      <section>
+      {isPending ? <Loader/> : null}
+
+        <img src={Image1} alt="img1" width="430px" className='hidden md:flex animate-slide-down' />
+
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-lg '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
               <Label className='flex items-center justify-center text-2xl'>Login</Label>
@@ -128,8 +136,7 @@ const Home: FC= () => {
             </form>
           </Form>
         </Card>
-      </div>
-    </main>
+      </section>
   )
 }
 

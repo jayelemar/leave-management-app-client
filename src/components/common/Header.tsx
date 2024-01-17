@@ -4,8 +4,7 @@ import { NavLink } from "react-router-dom"
 
 const Header = () => {
   return (
-    <header>
-      <div className="container h-16 max-w-1000 flex justify-between items-center relative mx-2 px-4 z-50">
+    <header className="h-16 flex justify-between items-center mx-2 px-2">
         <Logo/>
 
         <nav className="hidden lg:flex gap-x-7">
@@ -32,7 +31,6 @@ const Header = () => {
             Register
           </NavLink>
         </div>
-      </div>
     </header>
   )
 }

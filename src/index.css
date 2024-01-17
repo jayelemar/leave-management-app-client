@@ -81,23 +81,12 @@ html {
 
 body {
   font-family: "Poppins", "sans-serif";
-
-}
-header, footer, section, aside{
-  @apply justify-center w-full;
 }
 
-header, footer {
-  @apply z-50;
+section {
+  @apply w-full flex justify-center md:flex-row gap-x-4 md:px-4;
 }
 
-section, main {
-  @apply z-0;
-}
-
-.container, nav {
-  @apply m-auto max-w-[1280px];
-}
 
 h1, h2, h3, h4 {
   font-weight: 500;
@@ -148,3 +137,4 @@ p {
 .animate-slide-down {
   animation: slide-down 0.4s ease-out; 
 }
+

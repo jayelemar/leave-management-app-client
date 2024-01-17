@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions, selectName } from "@/redux/features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast as toastify } from "react-toastify";
+import Loader from "@/components/common/Loader";
 
 
 
@@ -82,12 +83,12 @@ const Register = () => {
   return (
     
     <section>
-      {isPending ? <p>Loading....</p> : null}
-      <div className="container flex flex-row-reverse justify-center items-center h-[570px] xs:h-[450px]">
-        <div className="hidden md:flex md:justify-between animate-slide-down">
-          <img src={registerImage} alt="img1" width="400px" />
-        </div>
-        <Card className='flex justify-center items-center mx-4 w-[400px] mb-4 h-[430px] animate-slide-up shadow-lg'>
+      {isPending ? <Loader/> : null}
+
+        
+        <img src={registerImage} alt="img1" width="400px" className="hidden md:flex animate-slide-down"/>
+
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[450px] mb-4 h-[500px] md:h-[500px] shadow-lg '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-3">
               <Label className='flex items-center justify-center text-2xl'>Register</Label>
@@ -160,7 +161,7 @@ const Register = () => {
             </form>
           </Form>
         </Card>
-      </div>
+
     </section>
   )
 }
