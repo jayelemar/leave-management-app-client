@@ -7,7 +7,7 @@ const NotFound: FC = () => {
 
   return (
     <section>
-      <div className="container flex justify-center items-center min-h-[80vh] flex-col">
+      <div className="container flex justify-center items-center min-h-[82vh] flex-col">
           <img src={NotFoundImg} width={300} alt="not-found.img" />
           <div className="flex flex-col justify-center items-center gap-2">
             <h2 className="text-xl">Oops! Page Not Found</h2>

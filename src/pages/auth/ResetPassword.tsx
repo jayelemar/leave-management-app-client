@@ -43,11 +43,8 @@ const ResetPassword = () => {
 
   return (
     <section>
-      <div className="w-screen flex flex-row-reverse md:justify-center gap-x-4 md:px-4 h-[450px]">
-        <div className="hidden md:flex md:justify-between animate-slide-down">
-          <img src={ResetImage} alt="img1" width="400px" />
-        </div>
-        <Card className='flex justify-center items-center mx-4 md:w-[400px] mb-4 h-[500px] md:h-[430px] animate-slide-up shadow-lg'>
+          <img src={ResetImage} alt="img1" width="400px" className="animate-slide-down hidden md:flex"/>
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-lg '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-3">
               <Label className='flex items-center justify-center text-2xl'>Reset Password</Label>
@@ -118,7 +115,6 @@ const ResetPassword = () => {
             </form>
           </Form>
         </Card>
-      </div>
     </section>
   )
 }

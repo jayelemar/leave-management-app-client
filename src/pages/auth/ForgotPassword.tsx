@@ -49,11 +49,8 @@ const ForgotPassword: FC = () => {
 
   return (
     <section>
-      <div className="w-screen flex flex-col md:flex-row md:justify-center gap-x-4 md:px-4 h-[450px]">
-        <div className="animate-slide-down hidden md:flex md:justify-between">
-          <img src={ForgotImage} alt="img1" width="430px" />
-        </div>
-        <Card className='animate-slide-up flex justify-center items-center mx-4 md:w-[400px] mb-4 h-[500px] md:h-[430px] shadow-lg '>
+        <img src={ForgotImage} alt="img1" width="430px" className='hidden md:flex animate-slide-down' />
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-lg '>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
               <Label className='flex items-center justify-center text-2xl'>Forgot Password</Label>
@@ -75,7 +72,7 @@ const ForgotPassword: FC = () => {
             </form>
           </Form>
         </Card>
-      </div>
+
     </section>
   )
 }

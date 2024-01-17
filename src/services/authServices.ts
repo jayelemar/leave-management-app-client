@@ -14,7 +14,7 @@ export const useRegisterUser = () => {
     try {
       const response = await axios.post(`${BACKEND_URL}/api/users/register`, data)
       if(response.data.success) {
-        toast.success("Login Successful...")
+        toast.success("User Registered Succussfully...")
       }
       return response.data
     } catch (error) {
