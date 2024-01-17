@@ -1,16 +1,20 @@
 import React from "react";
-import Footer from "./Footer";
 import DashboardHeader from "./DashboardHeader";
+import Footer from "./Footer";
+
+
 
 
 
 function DashboardLayout({ children }: {children: React.ReactNode}) {
   return (
-    <>
-      <DashboardHeader />
-      <div className="h-screen-90">{children}</div>
-      <Footer />
-    </>
+    <div className="flex flex-col min-h-screen w-full">
+      <DashboardHeader/>
+
+        {children}
+
+      <Footer/>
+    </div>
   );
 }
 

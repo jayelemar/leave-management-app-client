@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { actions, selectName } from "@/redux/features/auth/authSlice";
 import { useAppDispatch } from "@/redux/store";
+import { useLogoutUser } from "@/services/authServices";
+import Loader from "./Loader";
 useSelector;
 
 function DashboardHeader() {
@@ -12,16 +14,21 @@ function DashboardHeader() {
   const navigate = useNavigate();
   const name = useSelector(selectName);
 
+  const { refetch, isPending } = useLogoutUser();
+
   const handleLogoutClick = async () => {
     // await logoutUser();
-    await dispatch(actions.SET_NAME(""));
-    await dispatch(actions.SET_LOGIN(false));
+    await refetch();
+    toast.success("You successfully logout.");
+    await dispatch(actions.LOGOUT_USER())
     navigate("/");
-    toast.success("You have successfully log-out.");
+
   };
 
   return (
-    <header className="flex justify-between items-center h-10">
+    
+    <header className="flex justify-between items-center h-16 w-full">
+      {isPending ? <Loader/> : null}
       <h5 className="flex font-normal">
         <span>Welcome,</span>
         <span>{name}</span>

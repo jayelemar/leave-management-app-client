@@ -1,9 +1,14 @@
+import DashboardLayout from "@/components/common/DashboardLayout"
 
 const Dashboard = () => {
   return (
-    <div>
-      Dashboard
-    </div>
+    <DashboardLayout>
+
+      <div className="h-full">
+        Dashboard Page
+      </div>
+    </DashboardLayout>
+
   )
 }
 

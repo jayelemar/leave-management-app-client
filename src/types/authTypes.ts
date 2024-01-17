@@ -9,4 +9,13 @@ export interface LoginUser {
   password: string,
 }
 
+export interface ForgotPassword {
+  email: string,
+}
+
+export interface ResetPassword {
+  password: string,
+}
+
+
 
