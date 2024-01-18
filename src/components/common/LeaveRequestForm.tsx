@@ -122,12 +122,12 @@ export function LeaveRequestForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-          {leaveCategories.map((category) => (
-            <SelectItem key={category.value} value={category.value}>
-              {category.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
+                      {leaveCategories.map((category) => (
+                        <SelectItem key={category.value} value={category.value}>
+                          {category.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>

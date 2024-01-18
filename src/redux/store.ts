@@ -1,13 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { AuthStateType, authReducer } from './features/authSlice';
-//import { productReducer, ProductStateType } from './feature/productSlice';
+import { LeaveStateType, leaveReducer } from './features/leaveSlice';
 
 export type RootState = {
     auth: AuthStateType;
+    leaveRequest: LeaveStateType;
 }
 const rootReducer = combineReducers({
     auth: authReducer,
+    leave: leaveReducer
 
 });
 const store = configureStore({
