@@ -1,7 +1,7 @@
-
 import { ForgotPassword, LoginUser, RegisterUser, ResetPassword } from "@/types/authTypes"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
+
 import { toast } from "react-toastify"
 
 
@@ -13,9 +13,6 @@ export const useRegisterUser = () => {
   const registerUser = async (data: RegisterUser) => {
     try {
       const response = await axios.post(`${BACKEND_URL}/api/users/register`, data)
-      if(response.data.success) {
-        toast.success("User Registered Succussfully...")
-      }
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -72,25 +69,11 @@ export const useLoginUser = () => {
 
 // Logout User
 export const useLogoutUser = () => {
-  const logoutUser = async () => {
-    try {
-      await axios.get(`${BACKEND_URL}/api/users/logout`)
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const message =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          "An unexpected error occurred during login.";
-        console.error("Server response:", message);
-        toast.error(message);
-      } else {
-        toast.error("An unexpected error occurred");
-      }
-    }
-  }
 
+  const logoutUser = async () => {
+    await axios.get(`${BACKEND_URL}/api/users/logout`)
+    return true
+  }
   return useQuery({
     queryKey: ['users'],
     queryFn: logoutUser,
@@ -152,6 +135,34 @@ export const useResetPassword = () => {
   return useMutation({
     mutationKey: ['users'],
     mutationFn: resetPassword,
+  })
+}
+
+// Get Login Status
+export const useGetLoginStatus = () => {
+  const getLoginStatus = async () => {
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/users/loggedin`)
+      return response.data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message =
+          (error.response &&
+            error.response.data &&
+            error.response.data.message) ||
+          error.message ||
+          "An unexpected error occurred during login.";
+        console.error("Server response:", message);
+        toast.error(message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    }
+  }
+
+  return useQuery({
+    queryKey: ['users'],
+    queryFn: getLoginStatus,
   })
 }
 
