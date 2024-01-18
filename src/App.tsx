@@ -1,10 +1,13 @@
 import Modal from "react-modal"
 import { Route, Routes } from "react-router-dom";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 
 import Loader from "./components/common/Loader";
 import Sidebar from "./components/common/sidebar/Sidebar";
 import Layout from "./components/common/Layout";
+import { useAppDispatch } from "./redux/store";
+import { useGetLoginStatus } from "./services/authServices";
+import { actions } from "./redux/features/authSlice";
 const Home = lazy(() => import("./pages/home/Home"));
 const NotFound = lazy(() => import("./pages/404/NotFound"));
 const Login = lazy(() => import("./pages/auth/Login"))
@@ -18,6 +21,16 @@ const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"))
 Modal.setAppElement('#root');
 
 const App = () => {
+  const dispatch = useAppDispatch();
+  const {data: LoginStatus} = useGetLoginStatus()
+
+  useEffect(() => {
+    const loginStatus = async() => {
+      await dispatch(actions.SET_LOGIN(LoginStatus))
+    }
+    loginStatus()
+  }, [dispatch, LoginStatus ])
+  
   
   return (
     <Layout>

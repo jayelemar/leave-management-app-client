@@ -1,6 +1,8 @@
 import { Menu } from "lucide-react"
 import Logo from "./Logo"
 import { NavLink } from "react-router-dom"
+import ShowOnLogout from "./protect/ShowOnLogout"
+import ShowOnLogin from "./protect/ShowOnLogin"
 
 const Header = () => {
   return (
@@ -14,22 +16,30 @@ const Header = () => {
             >
               Home
             </NavLink>
-            <NavLink 
-              to='/dashboard'
-              className={({ isActive }) => isActive ?  'text-rose-500 underline underline-offset-4' : ''}
-            >
-              Dashboard
-            </NavLink>
+
+            <ShowOnLogin>
+              <NavLink 
+                to='/dashboard'
+                className={({ isActive }) => isActive ?  'text-rose-500 underline underline-offset-4' : ''}
+              >
+                Dashboard
+              </NavLink>
+            </ShowOnLogin>
+
         </nav>
   
         <Menu className="cursor-pointer m-1 lg:hidden" size={30}/>
         <div className="hidden lg:flex">
-          <NavLink 
-            to='/register'
-            className={({ isActive }) => isActive ?  'text-rose-500 underline underline-offset-4' : ''}
-          >
-            Register
-          </NavLink>
+
+          <ShowOnLogout>
+            <NavLink 
+              to='/register'
+              className={({ isActive }) => isActive ?  'text-rose-500 underline underline-offset-4' : ''}
+            >
+              Register
+            </NavLink>
+          </ShowOnLogout>
+
         </div>
     </header>
   )

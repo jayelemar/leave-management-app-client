@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { AuthStateType, authReducer } from './features/auth/authSlice';
+import { AuthStateType, authReducer } from './features/authSlice';
 //import { productReducer, ProductStateType } from './feature/productSlice';
 
 export type RootState = {

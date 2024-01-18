@@ -1,6 +1,5 @@
 
 import { FC, useEffect, useRef, useState } from 'react'
-import { toast } from '@/components/ui/use-toast'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -15,7 +14,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Label } from '@/components/ui/label'
 import { useLoginUser } from '@/services/authServices'
 import { useDispatch } from 'react-redux'
-import { actions } from '@/redux/features/auth/authSlice'
+import { actions } from '@/redux/features/authSlice'
 import { toast as toastify } from 'react-toastify'
 import Loader from '@/components/common/Loader'
 
@@ -37,29 +36,19 @@ const Home: FC= () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
+      password:"",
     },
   }) 
 
   const { mutateAsync: LoginMutation, isPending } = useLoginUser();
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    }) 
 
     try {
       const response = await LoginMutation(data);
       console.log("data from DB", response.name);
       dispatch(actions.SET_NAME(response.name))
-      setTimeout(() => { 
-        console.log("redux name is :", name); 
-     }, 0);
-
+      dispatch(actions.SET_LOGIN(true))
       toastify.success("User Login Successfully")
       navigate("/dashboard")
 
@@ -73,9 +62,14 @@ const Home: FC= () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null)
-  useEffect(()=> {
+  const passwordInputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (showPassword) {
+      passwordInputRef.current?.focus();
+    } else {
       inputRef.current?.focus();
-  })
+    }
+  }, [showPassword]);
 
   return (
 
@@ -110,8 +104,13 @@ const Home: FC= () => {
                   <FormItem className='flex flex-col justify-center items-start mb-12'>
                     <FormLabel className='mt-2 mr-4'>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="" type={showPassword ? 'text' : 'password'} {...field} />
-
+                      <Input
+                        placeholder=""
+                        type={showPassword ? 'text' : 'password'}
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        ref={passwordInputRef}
+                      />                
                     </FormControl>
                     <FormDescription>
                       <Link to='/forgotpassword' className='text-base font-normal text-slate-500'>Forget password?</Link>

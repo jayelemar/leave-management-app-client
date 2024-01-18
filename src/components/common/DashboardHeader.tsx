@@ -3,22 +3,21 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { actions, selectName } from "@/redux/features/auth/authSlice";
+import { actions, selectName } from "@/redux/features/authSlice";
 import { useAppDispatch } from "@/redux/store";
 import { useLogoutUser } from "@/services/authServices";
 import Loader from "./Loader";
-useSelector;
 
 function DashboardHeader() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const name = useSelector(selectName);
 
-  const { refetch, isPending } = useLogoutUser();
+  const { refetch: LogoutUserQuery, isPending } = useLogoutUser();
 
   const handleLogoutClick = async () => {
-    // await logoutUser();
-    await refetch();
+ 
+    await LogoutUserQuery();
     toast.success("You successfully logout.");
     await dispatch(actions.LOGOUT_USER())
     navigate("/");
