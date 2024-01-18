@@ -1,12 +1,9 @@
 import { ForgotPassword, LoginUser, RegisterUser, ResetPassword } from "@/types/authTypes"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
-
 import { toast } from "react-toastify"
 
-
-
-const BACKEND_URL: string = "http://localhost:8000"
+const BACKEND_URL: string = process.env.VITE_BACKEND_URL || 'http://localhost:8000'
 
 // Register User
 export const useRegisterUser = () => {
