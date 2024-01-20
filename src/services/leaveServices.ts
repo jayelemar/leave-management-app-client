@@ -3,7 +3,7 @@ import { LeaveProps } from "@/types/leaveTypes";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios"
 
-const BACKEND_URL: string = process.env.VITE_BACKEND_URL || 'http://localhost:8000'
+const BACKEND_URL: string = import.meta.env.VITE_BACKEND_URL
 
 // Create a new Leave Request
 export const useCreateLeave = () => {

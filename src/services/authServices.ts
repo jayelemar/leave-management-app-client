@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { toast } from "react-toastify"
 
-const BACKEND_URL: string = process.env.VITE_BACKEND_URL || 'http://localhost:8000'
+const BACKEND_URL: string = import.meta.env.VITE_BACKEND_URL 
 
 // Register User
 export const useRegisterUser = () => {
