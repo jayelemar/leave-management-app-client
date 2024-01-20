@@ -1,25 +1,26 @@
 
 
-import { useSelector } from "react-redux";
+
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { actions, selectName } from "@/redux/features/authSlice";
-import { useAppDispatch } from "@/redux/store";
 import { useLogoutUser } from "@/services/authServices";
-import Loader from "./Loader";
+import Loader from "../layout/Loader";
+import { useAuthStore } from "@/store/authStore";
 
 function DashboardHeader() {
-  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
-  const name = useSelector(selectName);
+  const name = useAuthStore((state) => state.name)
 
   const { refetch: LogoutUserQuery, isPending } = useLogoutUser();
+  const SET_LOGOUT = useAuthStore((state) => state.SET_LOGOUT)
 
   const handleLogoutClick = async () => {
  
     await LogoutUserQuery();
+    SET_LOGOUT();
     toast.success("You successfully logout.");
-    await dispatch(actions.LOGOUT_USER())
+  
     navigate("/");
 
   };

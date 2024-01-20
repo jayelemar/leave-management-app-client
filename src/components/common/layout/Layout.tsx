@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
-  const isDashboard = location.pathname.startsWith("/dashboard");
+  const isDashboard = location.pathname.startsWith("/dashboard") || location.pathname.startsWith("/request-leave");
 
   return (
     <div className='flex flex-col mx-auto min-h-screen max-w-screen-2xl'>

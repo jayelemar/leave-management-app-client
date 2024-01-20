@@ -1,37 +1,27 @@
-import { actions } from "@/redux/features/authSlice"
-import { useAppDispatch } from "@/redux/store"
-import { useGetLoginStatus } from "@/services/authServices"
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
-
+import { useGetLoginStatus } from "@/services/authServices";
+import { useAuthStore } from "@/store/authStore";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const useRedirectLoggedOutUser = (path: string) => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { data: isLoggedIn } = useGetLoginStatus()
+  const isLoggedInData = useGetLoginStatus().data;
+  const setLoginStatus = useAuthStore((state) => state.setLoginStatus)
 
   useEffect(() => {
     const redirectLoggedOutUser = async () => {
-      try {
-        dispatch(actions.SET_LOGIN(isLoggedIn))
-  
-        if(!isLoggedIn){
-          toast.info("Session expired, please login to continue.")
-          navigate("/")
-          return
-        }
-      } catch (error) {
-        console.error("Error checking login status:", error);
-      }
+      setLoginStatus(isLoggedInData); 
 
-      
+      if (!isLoggedInData) {
+        toast.info("Session expired, please login to continue.");
+        navigate("/");
+        return;
+      }
     };
 
-      redirectLoggedOutUser();
-    
-  }, [navigate, path, dispatch, isLoggedIn ])
-  
-}
+    redirectLoggedOutUser();
+  }, [navigate, path, isLoggedInData, setLoginStatus]);
+};
 
-export default useRedirectLoggedOutUser
+export default useRedirectLoggedOutUser;

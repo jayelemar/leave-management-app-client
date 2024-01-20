@@ -18,11 +18,4 @@ const Loader = () => {
 }
 export default Loader
 
-//Spinner.tsx
-export const spinnerImg = () => {
-  return (
-    <div className="flex justify-center items-center flex-col w-full mx-auto text-center">
-      <img src={loaderImg} alt="Loading..." />
-    </div>
-  )
-};
+

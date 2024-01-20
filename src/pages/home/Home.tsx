@@ -13,10 +13,9 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { Label } from '@/components/ui/label'
 import { useLoginUser } from '@/services/authServices'
-import { useDispatch } from 'react-redux'
-import { actions } from '@/redux/features/authSlice'
 import { toast as toastify } from 'react-toastify'
-import Loader from '@/components/common/Loader'
+import Loader from '@/components/common/layout/Loader'
+import { useAuthStore } from '@/store/authStore'
 
 
 const FormSchema = z.object({
@@ -29,7 +28,6 @@ const FormSchema = z.object({
 })
 
 const Home: FC= () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -40,6 +38,8 @@ const Home: FC= () => {
     },
   }) 
 
+  const setIsLoggedIn = useAuthStore((state) => state.setLoginStatus)
+  const setName = useAuthStore((state) => state.setName)
   const { mutateAsync: LoginMutation, isPending } = useLoginUser();
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -47,8 +47,8 @@ const Home: FC= () => {
     try {
       const response = await LoginMutation(data);
       console.log("data from DB", response.name);
-      dispatch(actions.SET_NAME(response.name))
-      dispatch(actions.SET_LOGIN(true))
+      setName(response.name)
+      setIsLoggedIn(true)
       toastify.success("User Login Successfully")
       navigate("/dashboard")
 

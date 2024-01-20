@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/common/DashboardLayout"
+import DashboardLayout from "@/components/common/dashboard/DashboardLayout"
 import useRedirectLoggedOutUser from "@/customHook/useRedirectLoggedOutUser"
 
 const Dashboard = () => {

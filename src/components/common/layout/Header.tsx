@@ -1,8 +1,8 @@
 import { Menu } from "lucide-react"
-import Logo from "./Logo"
+import Logo from "@/components/common/layout/Logo"
 import { NavLink } from "react-router-dom"
-import ShowOnLogout from "./protect/ShowOnLogout"
-import ShowOnLogin from "./protect/ShowOnLogin"
+import ShowOnLogout from "../protect/ShowOnLogout"
+import ShowOnLogin from "../protect/ShowOnLogin"
 
 const Header = () => {
   return (

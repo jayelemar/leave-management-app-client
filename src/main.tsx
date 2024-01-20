@@ -4,8 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import "react-datetime/css/react-datetime.css"
 import { Toaster } from './components/ui/toaster.tsx'
-import store from './redux/store.ts'
-import { Provider } from 'react-redux'
+
 import { BrowserRouter } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import axios from 'axios'
@@ -21,7 +20,7 @@ const queryCLient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
 
-    <Provider store={store}>
+
       <BrowserRouter>
           <QueryClientProvider client={queryCLient}>
             <App />
@@ -31,7 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           </QueryClientProvider>
 
       </BrowserRouter>
-    </Provider>
+
 
   </React.StrictMode>,
 )
