@@ -9,7 +9,7 @@ interface LeaveStatusTableProps {
 }
 
 const LeaveStatusTable: FC<LeaveStatusTableProps> = ({ leaves }) => {
-
+  
   return (
     <Table>
       <TableHeader>

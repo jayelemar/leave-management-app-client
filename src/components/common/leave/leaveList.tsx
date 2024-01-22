@@ -2,16 +2,25 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Search } from "lucide-react"
-
-import { FC } from "react"
+import { FC, useState } from "react"
 import { LeaveProps } from "@/types/leaveTypes"
 import LeaveStatusTable from "./leaveStatusTable"
+import ReactPaginate from 'react-paginate';
+
 interface LeaveListProps {
   leaves:  LeaveProps[] | [],
 }
 
 const LeaveList:FC<LeaveListProps> = ({ leaves }) => {
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(0)
+  const indexOfLastItem = (currentPage + 1) * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = leaves.slice(indexOfFirstItem, indexOfLastItem)
 
+  const handlePageChange = ({selected}: {selected: number}) => {
+    setCurrentPage(selected)
+  };
 
   if(!leaves) {
     return (
@@ -38,7 +47,18 @@ const LeaveList:FC<LeaveListProps> = ({ leaves }) => {
           {Array.isArray(leaves) && leaves.length === 0 ? (
                 <p>-- No Request Leave Found --</p>
               ): (
-                <LeaveStatusTable leaves={leaves ?? []}/>
+                <div>
+                  <LeaveStatusTable leaves={currentItems}/>
+                  <ReactPaginate 
+                    className="flex justify-center items-center gap-4 text-solidGreen"
+                    activeClassName="text-red-500 underline underline-offset-4"
+                    pageCount={Math.ceil(leaves.length / itemsPerPage)}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={1}
+                    onPageChange={handlePageChange}
+                    containerClassName="pagination"
+                  />
+                </div>
               )
             }
           </div>
