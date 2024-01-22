@@ -16,6 +16,7 @@ function DashboardHeader() {
   const SET_LOGOUT = useAuthStore((state) => state.SET_LOGOUT)
 
   const handleLogoutClick = async () => {
+    console.log("Logout button clicked");
  
     await LogoutUserQuery();
     SET_LOGOUT();

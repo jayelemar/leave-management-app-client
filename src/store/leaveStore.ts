@@ -25,11 +25,13 @@ type Leave = {
 
 type LeaveStore = {
   leave: Leave | null,
-  leaves: Leave[]
+  leaves: Leave[],
+
 }
 
 export const useLeaveStore = create<LeaveStore>(() => ({
   //initial state
   leave: null,
   leaves: []
+  
 }))

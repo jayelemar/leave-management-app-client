@@ -74,6 +74,7 @@ export const useLogoutUser = () => {
   return useQuery({
     queryKey: ['users'],
     queryFn: logoutUser,
+    enabled: false, 
   })
 }
 
