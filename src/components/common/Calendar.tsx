@@ -3,24 +3,23 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import { CalendarProps } from '@/types/calendarTypes';
 
-const Calendar: FC<CalendarProps> = ({ start, end, title }) => {
+const Calendar: FC<CalendarProps> = ({ events }) => {
   const startDate = new Date(start);
   const endDate = new Date(end);
 
+
   return (
-    <section>
+ 
       <FullCalendar
+        expandRows
+        height={500}
+        aspectRatio={4}
+        handleWindowResize={true}
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
-        events={[
-          {
-            title: title,
-            start: startDate,
-            end: endDate,
-          },
-        ]}
+        events={ events }
       />
-    </section>
+
   );
 };
 
