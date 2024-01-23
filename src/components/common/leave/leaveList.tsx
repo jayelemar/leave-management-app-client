@@ -4,8 +4,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search } from "lucide-react"
 import { FC, useState } from "react"
 import { LeaveProps } from "@/types/leaveTypes"
-import LeaveStatusTable from "./leaveStatusTable"
+
 import ReactPaginate from 'react-paginate';
+import LeaveStatusTable from "./LeaveStatusTable"
+
 
 interface LeaveListProps {
   leaves:  LeaveProps[] | [],
@@ -30,7 +32,7 @@ const LeaveList:FC<LeaveListProps> = ({ leaves }) => {
     return (
       <Card className="m-4 p-4">
         <CardHeader className="flex flex-row justify-between items-baseline">
-          <CardTitle className="text-solidGreen text-3xl font-normal">Request Leaves</CardTitle>
+          <CardTitle className="text-solidGreen text-3xl font-normal">My Leaves</CardTitle>
           <Select>
             <SelectTrigger className="w-[250px]">
             <Search size={20} /><SelectValue placeholder="Seach by Leave Status" />
@@ -51,7 +53,7 @@ const LeaveList:FC<LeaveListProps> = ({ leaves }) => {
                   <LeaveStatusTable leaves={currentItems}/>
                   <ReactPaginate 
                     className="flex justify-center items-center gap-4 text-solidGreen"
-                    activeClassName="text-red-500 underline underline-offset-4"
+                    activeClassName="text-red-500 underline underline-offset-4 font-semibold"
                     pageCount={Math.ceil(leaves.length / itemsPerPage)}
                     pageRangeDisplayed={3}
                     marginPagesDisplayed={1}
