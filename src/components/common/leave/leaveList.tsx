@@ -1,12 +1,13 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search } from "lucide-react"
-import { FC, useState } from "react"
+import { FC, lazy, useState } from "react"
 import { LeaveProps } from "@/types/leaveTypes"
-
 import ReactPaginate from 'react-paginate';
-import LeaveStatusTable from "./LeaveStatusTable"
+import SelectStatus from "../selectStatus/SelectStatus"
+
+
+const LeaveTable = lazy(() => import ("./LeaveTable"))
+const LeaveMobileTable = lazy(() => import ("./LeaveMobileTable"))
 
 
 interface LeaveListProps {
@@ -24,25 +25,18 @@ const LeaveList:FC<LeaveListProps> = ({ leaves }) => {
     setCurrentPage(selected)
   };
 
+  
+
   if(!leaves) {
     return (
       <p>No Upcoming Request Leave</p>
     )
   } else {
     return (
-      <Card className="m-4 p-4">
+      <Card className="w-full">
         <CardHeader className="flex flex-row justify-between items-baseline">
-          <CardTitle className="text-solidGreen text-3xl font-normal">My Leaves</CardTitle>
-          <Select>
-            <SelectTrigger className="w-[250px]">
-            <Search size={20} /><SelectValue placeholder="Seach by Leave Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="approved">Approved</SelectItem>
-              <SelectItem value="rejected">Rejected</SelectItem>
-            </SelectContent>
-          </Select>
+          <CardTitle className="text-solidGreen text-base sm:text-3xl font-normal">My Leaves</CardTitle>
+          <SelectStatus/>
         </CardHeader>
         <CardContent>
           <div>
@@ -50,16 +44,24 @@ const LeaveList:FC<LeaveListProps> = ({ leaves }) => {
                 <p>-- No Request Leave Found --</p>
               ): (
                 <div>
-                  <LeaveStatusTable leaves={currentItems}/>
-                  <ReactPaginate 
-                    className="flex justify-center items-center gap-4 text-solidGreen"
-                    activeClassName="text-red-500 underline underline-offset-4 font-semibold"
-                    pageCount={Math.ceil(leaves.length / itemsPerPage)}
-                    pageRangeDisplayed={3}
-                    marginPagesDisplayed={1}
-                    onPageChange={handlePageChange}
-                    containerClassName="pagination"
-                  />
+                  <div className="hidden md:flex flex-col min-w-full">
+                    <LeaveTable leaves={currentItems}/>
+                  </div>
+                  <div className="flex md:hidden w-full">
+                    <LeaveMobileTable leaves={currentItems}/>
+                  </div>
+ 
+                  {currentPage === 0 ? null : (
+                    <ReactPaginate 
+                      className="flex justify-center items-center gap-4 text-solidGreen"
+                      activeClassName="text-red-500 underline underline-offset-4 font-semibold"
+                      pageCount={Math.ceil(leaves.length / itemsPerPage)}
+                      pageRangeDisplayed={3}
+                      marginPagesDisplayed={1}
+                      onPageChange={handlePageChange}
+                      containerClassName="pagination"
+                    />
+                  )}
                 </div>
               )
             }

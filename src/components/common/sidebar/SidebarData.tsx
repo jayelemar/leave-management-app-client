@@ -1,6 +1,18 @@
-import { Bug, CalendarCheck, CircleUserRound, Grid3X3, } from "lucide-react";
+import { Bug, CalendarCheck, CircleUserRound, Grid3X3, LogOut, } from "lucide-react";
 
-const menu = [
+type ChildItem = {
+  title: string;
+  path: string;
+};
+
+export type ItemProps = {
+  title: string,
+  icon: React.ReactNode,
+  path?: string,
+  children?: ChildItem[]
+}
+
+const items: ItemProps[] = [
   {
     title: "Dashboard",
     icon: <Grid3X3 size={24} />,
@@ -30,6 +42,14 @@ const menu = [
     icon: <Bug size={24} />,
     path: "/contact-us",
   },
+  {
+    title: "Log Out",
+    icon: <LogOut  size={24} />,
+    path: "/",
+  },
 ];
 
-export default menu;
+export default items;
+
+
+

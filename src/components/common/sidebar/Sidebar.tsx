@@ -1,41 +1,46 @@
-import { ChevronsLeftRight } from 'lucide-react'
-import { ReactNode, useState } from 'react'
-import menu from './SidebarData'
-import SidebarItem from './SidebarItem'
-import { useNavigate } from 'react-router-dom'
+import React, { FC } from 'react'
+import SidebarHeader from './SidebarHeader';
+import SidebarList from './SidebarList';
+import { useSidebarStore } from '@/store/sidebarStore';
+import MobileNav from '../mobile/MobileNav';
 
-const Sidebar = ({children}:{children: ReactNode}) => {
-  const [isOpen, setisOpen] = useState(true)
-  const navigate = useNavigate();
+type SidebarProps = {
+  children: React.ReactNode
+}
 
-  const toggleSidebar = () => {
-    setisOpen(!isOpen)
-  };
+const Sidebar:FC<SidebarProps> = ({ children }) => {
+  const isOpen = useSidebarStore().isOpen
 
-  const handleClickHome = () => {
-    navigate('/')
-  };
   return (
-    <section className='gap-x-0 md:px-0'>
-      <div className="flex flex-col  min-h-[100vh] bg-slate-100 ">
-        <div 
-          className={`flex justify-between items-center h-10 overflow-hidden p-2 bg-solidGreen flex-shrink-0 transition-all duration-500 ease-out
-          ${isOpen ? 'w-60' : 'w-12' }`}
-        >
-          {isOpen ? <h5 className='font-medium pl-3 cursor-pointer' onClick={handleClickHome}>logo</h5> : null}
-          <ChevronsLeftRight size={25} onClick={toggleSidebar} className='ml-1 cursor-pointer'/>
-        </div>
-        <div className="">
-          {menu.map((item, index) : ReactNode => {
-            return(
-              <SidebarItem key={index} item={item} isOpen={isOpen}/>
-            )
-          })}
-        </div>
+    <nav className={`relative w-full flex`}>
+      <div className="lg:hidden">
+      <MobileNav/>
       </div>
+
+
+      <div className={`flex-col  min-h-[100vh] bg-slate-100 
+          top-0 left-0 hidden lg:flex  flex-shrink-0 transition-all duration-500 ease-ou 
+          w-64`}
+      >
+
+        <div className={`flex justify-between items-center h-16 overflow-hidden bg-slate-700 flex-shrink-0
+          transition-all duration-500 ease-out w-full text-yellow-50`}
+        >
+          <SidebarHeader  />
+        </div>
+
+        <div>
+          <SidebarList />
+        </div>
+
+      </div>
+
+      <div className={`top-0 w-full ${isOpen ? 'left-60' : 'left-0 lg:left-12' } `}>
         {children}
-    </section>
-  )
+      </div>
+
+    </nav>
+  );
 }
 
 export default Sidebar

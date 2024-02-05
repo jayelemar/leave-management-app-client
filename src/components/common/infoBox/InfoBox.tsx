@@ -11,15 +11,14 @@ interface InfoBoxProps {
 const InfoBox:FC<InfoBoxProps> = ({ bgColor, title, count }) => {
   return (
     <Card 
-
-      className={`${bgColor} w-full m-auto pt-3 pl-3 flex items-center justify-center gap-2 text-white mx-4`}
+      className={`${bgColor} flex flex-col xs:flex-row  xs:gap-2 justify-center text-center items-center  text-white p-2`}
     >
 
-      <h1>{count}</h1>
-      <p className="text-xl relative bottom-3">{title}</p>
 
- 
-  
+        <h1 className="text-4xl inline h-6">{count}</h1>
+
+        <p className="text-xs xs:text-sm sm:text-base md:text-lg xl:text-xl inline md:whitespace-nowrap">{title}</p>
+
     </Card>
   )
 }

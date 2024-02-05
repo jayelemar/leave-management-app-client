@@ -1,18 +1,15 @@
 
-import DashboardLayout from "@/components/common/dashboard/DashboardLayout"
 import { LeaveRequestForm } from "@/components/common/leave/LeaveRequestForm"
 
 
 const RequestLeave = () => {
   return (
-    <DashboardLayout>
-      <div className="flex flex-grow justify-center items-center">
-      Request Leave .tsx
+      <div className="mt-4">
+        <h4 className="mx-8">Leave Request</h4>
+        <div className="">
+          <LeaveRequestForm/>
+        </div>
       </div>
-      <div className="">
-        <LeaveRequestForm/>
-      </div>
-      </DashboardLayout>
   )
 }
 

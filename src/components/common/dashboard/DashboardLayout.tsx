@@ -10,9 +10,9 @@ function DashboardLayout({ children }: {children: React.ReactNode}) {
   return (
     <div className="flex flex-col min-h-screen w-full">
       <DashboardHeader/>
-
+        <div className="flex flex-col flex-grow w-full">
         {children}
-
+        </div>
       <Footer/>
     </div>
   );

@@ -84,7 +84,7 @@ const ForgotPassword: FC = () => {
                 )}
               />
               <Button type="submit" className='w-full'>Get Reset Email</Button>
-              <Link to='/'className='text-base font-normal flex text-slate-500 relative bottom-3'><ChevronLeft size={23} />Home</Link>
+              <Link to='/'className='text-base font-normal flex text-slate-500 relative bottom-4'><ChevronLeft size={23} />Home</Link>
             </form>
           </Form>
 

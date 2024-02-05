@@ -1,4 +1,5 @@
 
+import { useLeaveStore } from "@/store/leaveStore";
 import { LeaveFormProps } from "@/types/leaveTypes";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios"
@@ -22,9 +23,17 @@ export const useCreateLeave = () => {
 
 // Get Leaves
 export const useGetLeaves = () => {
+  const setLeaves = useLeaveStore().setLeaves
+
   const getLeaves = async () => {
     const response =await axios.get(`${BACKEND_URL}/api/leaves`)
-    return response.data
+    const leavesData = response.data
+
+    setLeaves(leavesData);
+    return leavesData
+    
+
+
   };
 
   return useQuery({
