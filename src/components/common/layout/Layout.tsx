@@ -13,7 +13,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     <div className='flex flex-col mx-auto min-h-screen max-w-screen-2xl'>
       {!isDashboard ? <Header/> : null }
       
-      <main>
+      <main className='flex flex-grow justify-center items-center'>
       { children }
       </main>
       {!isDashboard ? <Footer/> : null }

@@ -73,7 +73,7 @@ const Home: FC= () => {
 
   return (
 
-      <section>
+      <section className='flex flex-row justify-center items-center'>
       {isPending ? <Loader/> : null}
 
         <img src={Image1} alt="img1" width="430px" className='hidden md:flex animate-slide-down' />
@@ -132,6 +132,7 @@ const Home: FC= () => {
                 )}
               </div>
               <Button type="submit" className='w-full'>Login</Button>
+              <Link to='/register'className='text-base font-normal flex text-slate-500 relative bottom-3'>Dont have an account? Register</Link>
             </form>
           </Form>
         </Card>

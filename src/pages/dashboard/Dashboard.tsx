@@ -1,9 +1,8 @@
-import Calendar from "@/components/common/Calendar";
-import DashboardLayout from "@/components/common/dashboard/DashboardLayout"
+
+import Calendar from "@/components/common/calendar/Calendar";
+import WelcomeName from "@/components/common/dashboard/WelcomeName";
 import LeaveList from "@/components/common/leave/LeaveList";
 import LeaveSummary from "@/components/common/leave/LeaveSummary";
-import { Card } from "@/components/ui/card";
-
 
 import useRedirectLoggedOutUser from "@/customHook/useRedirectLoggedOutUser"
 import { useGetLeaves } from "@/services/leaveServices";
@@ -15,51 +14,51 @@ interface DashboardProps {
 }
 
 interface LeaveMapProps {
-  name: string,
-  startDate: Date,
-  endDate: Date,
+  name: string;
+  startDate: Date;
+  endDate: Date;
 }
+
+const transformLeavesToCalendarEvents = (leaves: LeaveMapProps[]) => {
+  return leaves.map((leave) => ({
+    start: new Date(leave.startDate),
+    end: new Date(new Date(leave.endDate).setHours(23, 59, 59)),
+    title: leave.name
+  }));
+};
 
 const Dashboard: FC<DashboardProps> = () => {
   useRedirectLoggedOutUser("/");
   const {data: leaves, refetch} = useGetLeaves();
   
+  
   useEffect(() => {
     refetch
   }, [refetch])
+
+  const calendarEvents = leaves ? transformLeavesToCalendarEvents(leaves) : []
   
   
   return (
-    <DashboardLayout>
+        <main className="flex flex-col justify-start item-start w-full gap-4">
 
-        <LeaveSummary/>
-        <div className="flex justify-between w-full m-4 flex-col lg:flex-row gap-4 my-8">
-          <Card className="p-4 w-full lg:w-4/6">
-            <Calendar 
-              events = {
-                leaves ? leaves.map((leave: LeaveMapProps) => ({
-                  start:new Date(leave.endDate),
-                  end:new Date(leave.endDate),
-                  title: leave.name
-                }))
-                : []
-              }
+          <div className="mt-6 text-darkGrey text-sm w-full px-4">
+            <WelcomeName/>
+          </div>
 
+          <div className="flex w-full">
+            <LeaveSummary/>
+          </div>
+          <div className="flex flex-col xl:flex-row">
+            <div className="px-4 w-full hidden xs:flex">
+              <Calendar events = {calendarEvents}/>
+            </div>
 
-
-
-
-
-            />
-          </Card>
-        <div className="w-2/6">
-          Leave Statistics.
-        </div>
-        </div>
-        <LeaveList   leaves={leaves ?? []}/>
- 
-    </DashboardLayout>  
-
+          </div>
+          <div className="w-full px-4">
+            <LeaveList   leaves={leaves ?? []} /> 
+          </div>
+        </main>
   )
 }
 

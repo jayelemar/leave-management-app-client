@@ -10,7 +10,6 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
 axios.defaults.withCredentials = true;
@@ -26,7 +25,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <App />
             <ToastContainer/>
             <Toaster/>
-            <ReactQueryDevtools />
           </QueryClientProvider>
 
       </BrowserRouter>

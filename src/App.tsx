@@ -1,21 +1,20 @@
 import Modal from "react-modal"
 import { Route, Routes } from "react-router-dom";
 import { Suspense, lazy, useEffect } from "react";
-
 import Loader from "./components/common/layout/Loader";
-import Sidebar from "./components/common/sidebar/Sidebar";
 import Layout from "./components/common/layout/Layout";
 import { useAuthStore } from "./store/authStore";
 import { useGetLoginStatus } from "./services/authServices";
 import { Spinner } from "./components/common/layout/Spinner";
-import RequestLeave from "./pages/dashboard/RequestLeave";
+import DashboardLayout from "./components/common/dashboard/DashboardLayout";
+import Sidebar from "./components/common/sidebar/Sidebar";
 const Home = lazy(() => import("./pages/home/Home"));
 const NotFound = lazy(() => import("./pages/404/NotFound"));
-const Login = lazy(() => import("./pages/auth/Login"))
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"))
 const Register = lazy(() => import("./pages/auth/Register"))
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"))
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"))
+const RequestLeave = lazy(() => import ("./pages/dashboard/RequestLeave"))
 
 
 
@@ -36,9 +35,6 @@ const App = () => {
         <Routes>
 
           <Route path="/" element={<Home/>}/>
-          <Route path="/login" element={
-            <Suspense fallback={ <Loader/> }><Login/></Suspense>
-          }/>
           <Route path="/register" element={
             <Suspense fallback={ <Loader/> }>
               <Register/>
@@ -59,19 +55,27 @@ const App = () => {
               <NotFound/>
             </Suspense>}
           />
-          <Route path="/dashboard" element={
-            <Suspense fallback={ <Loader/> }>
+          <Route 
+            path="/dashboard" 
+            element={
               <Sidebar>
-                  <Dashboard/>
+                <DashboardLayout>
+                  <Suspense fallback={ <Spinner/> }>
+                    <Dashboard/>
+                  </Suspense>
+                </DashboardLayout>
               </Sidebar>
-            </Suspense>}
+            }
           />
           <Route path="/request-leave" element={
             <Sidebar>
-              <Suspense fallback={ <Spinner /> }>
-                  <RequestLeave/>
-              </Suspense>
-            </Sidebar>}
+              <DashboardLayout>
+                <Suspense fallback={ <Spinner /> }>
+                    <RequestLeave/>
+                </Suspense>
+              </DashboardLayout>
+            </Sidebar>
+            }
           />
 
         </Routes>

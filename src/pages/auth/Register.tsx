@@ -8,9 +8,9 @@ import { Card } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff } from "lucide-react";
+import { ChevronLeft, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast as toastify } from "react-toastify";
 import Loader from "@/components/common/layout/Loader";
 
@@ -125,6 +125,7 @@ const Register = () => {
               </div>
                 
               <Button type="submit" className='w-full'>Register</Button>
+              <Link to='/'className='text-base font-normal flex text-slate-500 relative bottom-2'><ChevronLeft size={23} />Home</Link>
             </form>
           </Form>
         </Card>
