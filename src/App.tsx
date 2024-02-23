@@ -22,8 +22,13 @@ Modal.setAppElement('#root');
 
 const App = () => {
 
-  const {data: isLoggedInData} = useGetLoginStatus()
+  const {data: isLoggedInData, refetch} = useGetLoginStatus()
   const setLoginStatus = useAuthStore((state) => state.setLoginStatus)
+
+  useEffect(() => {
+
+    refetch();
+  }, [refetch]);
 
   useEffect(() => {
     setLoginStatus(isLoggedInData)

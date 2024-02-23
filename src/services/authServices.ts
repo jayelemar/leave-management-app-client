@@ -141,7 +141,7 @@ export const useGetLoginStatus = () => {
   const getLoginStatus = async () => {
     try {
       const response = await axios.get(`${BACKEND_URL}/api/users/loggedin`)
-      return response.data
+      return response.data || {}
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message =
@@ -161,6 +161,7 @@ export const useGetLoginStatus = () => {
   return useQuery({
     queryKey: ['getLoginStatus'],
     queryFn: getLoginStatus,
+    enabled: false,
   })
 }
 
