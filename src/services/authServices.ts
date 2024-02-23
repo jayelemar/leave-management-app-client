@@ -28,7 +28,7 @@ export const useRegisterUser = () => {
   }
 
   return useMutation({
-    mutationKey: ['users'],
+    mutationKey: ['registerUser'],
     mutationFn: registerUser,
   })
 }
@@ -59,7 +59,7 @@ export const useLoginUser = () => {
   }
 
   return useMutation({
-    mutationKey: ['users'],
+    mutationKey: ['loginUser'],
     mutationFn: loginUser,
   })
 }
@@ -72,7 +72,7 @@ export const useLogoutUser = () => {
     return true
   }
   return useQuery({
-    queryKey: ['users'],
+    queryKey: ['logoutUser'],
     queryFn: logoutUser,
     enabled: false, 
   })
@@ -103,7 +103,7 @@ export const useForgotPassword = () => {
   }
 
   return useMutation({
-    mutationKey: ['users'],
+    mutationKey: ['forgotPassword'],
     mutationFn: forgotPassword,
   })
 }
@@ -131,7 +131,7 @@ export const useResetPassword = () => {
   }
 
   return useMutation({
-    mutationKey: ['users'],
+    mutationKey: ['resetPassword'],
     mutationFn: resetPassword,
   })
 }
@@ -159,7 +159,7 @@ export const useGetLoginStatus = () => {
   }
 
   return useQuery({
-    queryKey: ['users'],
+    queryKey: ['getLoginStatus'],
     queryFn: getLoginStatus,
   })
 }
