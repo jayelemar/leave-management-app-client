@@ -1,6 +1,6 @@
 
 
-import Logo from '../layout/Logo';
+import Logo from '../common/Logo';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet'
 
 import { useMobileNavStore } from '@/store/mobileNavStore'

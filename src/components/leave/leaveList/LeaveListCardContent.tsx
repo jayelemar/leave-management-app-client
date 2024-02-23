@@ -1,9 +1,25 @@
-import React from 'react'
+import { LeaveProps } from "@/types/leaveTypes"
 import LeaveTable from '../LeaveTable'
-import LeaveMobileTable from '../LeaveMobileTable'
 import ReactPaginate from 'react-paginate'
+import React, { lazy, useState } from "react"
+const LeaveMobileTable = lazy(() => import ("../LeaveMobileTable"))
 
-const LeaveListCardContent = () => {
+
+type LeaveListCardContentProps = {
+  leaves: LeaveProps [] | []
+}
+const LeaveListCardContent:React.FC<LeaveListCardContentProps> = ({leaves}) => {
+
+  const itemsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(0)
+  const indexOfLastItem = (currentPage + 1) * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = leaves.slice(indexOfFirstItem, indexOfLastItem)
+
+  const handlePageChange = ({selected}: {selected: number}) => {
+    setCurrentPage(selected)
+  };
+
   return (
   <div>
     {Array.isArray(leaves) && leaves.length === 0 ? (

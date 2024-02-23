@@ -12,7 +12,7 @@ import { ChevronLeft, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast as toastify } from "react-toastify";
-import Loader from "@/components/layout/Loader";
+import Loader from "@/components/loader/Loader";
 
 const FormSchema = z.object({
   name: z

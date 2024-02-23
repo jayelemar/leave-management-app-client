@@ -1,6 +1,6 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTrigger } from '@/components/ui/sheet'
 import { Menu } from 'lucide-react'
-import Logo from './Logo'
+import Logo from '../common/Logo'
 import { NavLink, useLocation } from 'react-router-dom'
 
 
