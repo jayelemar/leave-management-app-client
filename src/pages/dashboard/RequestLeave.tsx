@@ -1,5 +1,5 @@
 
-import { LeaveRequestForm } from "@/components/common/leave/LeaveRequestForm"
+import { LeaveRequestForm } from "@/components/leave/LeaveRequestForm"
 
 
 const RequestLeave = () => {

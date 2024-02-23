@@ -9,10 +9,11 @@ const SidebarList: FC = () => {
 
 
   return (
-    <ul>
+    <ul className='bg-slate-700
+    text-yellow-50'>
       {items.map((item: ItemProps) => {
         return (
-          <SidebarItem key={item.path} item={item}/>
+          <SidebarItem key={item.id} item={item}/>
         )
       })}
     </ul>

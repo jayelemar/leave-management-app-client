@@ -1,4 +1,4 @@
-import Logo from "@/components/common/layout/Logo"
+import Logo from "@/components/layout/Logo"
 
 const Header = () => {
   return (

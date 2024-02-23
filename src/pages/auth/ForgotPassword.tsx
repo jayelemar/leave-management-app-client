@@ -51,7 +51,7 @@ const ForgotPassword: FC = () => {
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.log(error.message);
-        // Handle specific error types if needed
+
       } else {
         console.error("An unknown error occurred:", error);
       }
@@ -64,9 +64,9 @@ const ForgotPassword: FC = () => {
 })
 
   return (
-    <section>
+    <section className='w-full'>
         <img src={ForgotImage} alt="img1" width="430px" className='hidden md:flex animate-slide-down' />
-        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-none md:shadow-lg border-none'>
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-full md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-none md:shadow-lg border-none'>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6 ">
               <Label className='flex items-center justify-center text-2xl relative bottom-6'>Forgot Password</Label>

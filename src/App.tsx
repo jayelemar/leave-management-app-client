@@ -1,13 +1,13 @@
 import Modal from "react-modal"
 import { Route, Routes } from "react-router-dom";
 import { Suspense, lazy, useEffect } from "react";
-import Loader from "./components/common/layout/Loader";
-import Layout from "./components/common/layout/Layout";
+import Loader from "./components/layout/Loader";
+import Layout from "./components/layout/Layout";
 import { useAuthStore } from "./store/authStore";
 import { useGetLoginStatus } from "./services/authServices";
-import { Spinner } from "./components/common/layout/Spinner";
-import DashboardLayout from "./components/common/dashboard/DashboardLayout";
-import Sidebar from "./components/common/sidebar/Sidebar";
+import { Spinner } from "./components/layout/Spinner";
+import DashboardLayout from "./components/dashboard/DashboardLayout";
+import Sidebar from "./components/sidebar/Sidebar";
 const Home = lazy(() => import("./pages/home/Home"));
 const NotFound = lazy(() => import("./pages/404/NotFound"));
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"))
@@ -61,7 +61,7 @@ const App = () => {
               <Sidebar>
                 <DashboardLayout>
                   <Suspense fallback={ <Spinner/> }>
-                    <Dashboard/>
+                    <Dashboard leaves={[]}/>
                   </Suspense>
                 </DashboardLayout>
               </Sidebar>

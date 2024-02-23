@@ -56,9 +56,9 @@ const ResetPassword = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <section>
+    <section className="w-full">
           <img src={ResetImage} alt="img1" width="400px" className="animate-slide-down hidden md:flex"/>
-        <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-none md:shadow-lg border-none'>
+        <Card className='animate-slide-up flex justify-center items-center mx-4 w-full md:w-[400px] mb-4 h-[500px] md:h-[500px] shadow-none md:shadow-lg border-none'>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-3">
               <Label className='flex items-center justify-center text-2xl'>Reset Password</Label>

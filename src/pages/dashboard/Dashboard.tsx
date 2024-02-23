@@ -1,13 +1,12 @@
 
-import Calendar from "@/components/common/calendar/Calendar";
-import WelcomeName from "@/components/common/dashboard/WelcomeName";
-import LeaveList from "@/components/common/leave/LeaveList";
-import LeaveSummary from "@/components/common/leave/LeaveSummary";
-
+import Calendar from "@/components/calendar/Calendar";
+import WelcomeName from "@/components/dashboard/WelcomeName";
+import LeaveList from "@/components/leave/leaveList/LeaveList";
 import useRedirectLoggedOutUser from "@/customHook/useRedirectLoggedOutUser"
 import { useGetLeaves } from "@/services/leaveServices";
 import { LeaveProps } from "@/types/leaveTypes";
 import { FC, useEffect } from "react";
+import InfoBoxSummary from "@/components/infoBox/InfoBoxSummary";
 
 interface DashboardProps {
   leaves:  LeaveProps[] | [],
@@ -29,15 +28,14 @@ const transformLeavesToCalendarEvents = (leaves: LeaveMapProps[]) => {
 
 const Dashboard: FC<DashboardProps> = () => {
   useRedirectLoggedOutUser("/");
-  const {data: leaves, refetch} = useGetLeaves();
-  
-  
-  useEffect(() => {
-    refetch
-  }, [refetch])
+  const { data: leavesData, refetch } = useGetLeaves();
 
-  const calendarEvents = leaves ? transformLeavesToCalendarEvents(leaves) : []
-  
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  const calendarEvents = leavesData ? transformLeavesToCalendarEvents(leavesData) : [];
+
   
   return (
         <main className="flex flex-col justify-start item-start w-full gap-4">
@@ -47,7 +45,7 @@ const Dashboard: FC<DashboardProps> = () => {
           </div>
 
           <div className="flex w-full">
-            <LeaveSummary/>
+            <InfoBoxSummary/>
           </div>
           <div className="flex flex-col xl:flex-row">
             <div className="px-4 w-full hidden xs:flex">
@@ -56,7 +54,7 @@ const Dashboard: FC<DashboardProps> = () => {
 
           </div>
           <div className="w-full px-4">
-            <LeaveList   leaves={leaves ?? []} /> 
+            <LeaveList   leaves={leavesData ?? []} /> 
           </div>
         </main>
   )
