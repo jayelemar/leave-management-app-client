@@ -30,8 +30,14 @@ const App = () => {
   }, [refetch]);
 
   useEffect(() => {
-    setLoginStatus(isLoggedInData)
-  }, [isLoggedInData,setLoginStatus ])
+    const fetchData = async () => {
+      await refetch();
+      if (isLoggedInData) {
+        setLoginStatus(isLoggedInData.isLoggedIn || false);
+      }
+    };
+    fetchData();
+  }, [isLoggedInData,setLoginStatus, refetch ])
   
   
   return (
