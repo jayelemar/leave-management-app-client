@@ -23,6 +23,7 @@ Modal.setAppElement('#root');
 const App = () => {
 
   const {data: isLoggedInData, refetch} = useGetLoginStatus()
+  const isLoggedIn = useAuthStore().isLoggedIn
   const setLoginStatus = useAuthStore((state) => state.setLoginStatus)
 
   useEffect(() => {
@@ -30,9 +31,15 @@ const App = () => {
     refetch();
   }, [refetch]);
 
+  
   useEffect(() => {
+    if(isLoggedIn === false) {
+      return;
+    }
     setLoginStatus(isLoggedInData)
-  }, [isLoggedInData,setLoginStatus ])
+
+
+  }, [isLoggedInData,setLoginStatus, isLoggedIn ])
   
   
   return (
