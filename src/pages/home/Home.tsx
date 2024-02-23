@@ -14,7 +14,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Label } from '@/components/ui/label'
 import { useLoginUser } from '@/services/authServices'
 import { toast as toastify } from 'react-toastify'
-import Loader from '@/components/common/layout/Loader'
+import Loader from '@/components/layout/Loader'
 import { useAuthStore } from '@/store/authStore'
 
 
@@ -73,7 +73,7 @@ const Home: FC= () => {
 
   return (
 
-      <section className='flex flex-row justify-center items-center'>
+      <section className='flex flex-row justify-center items-center w-full'>
       {isPending ? <Loader/> : null}
 
         <img src={Image1} alt="img1" width="430px" className='hidden md:flex animate-slide-down' />

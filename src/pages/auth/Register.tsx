@@ -12,7 +12,7 @@ import { ChevronLeft, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { toast as toastify } from "react-toastify";
-import Loader from "@/components/common/layout/Loader";
+import Loader from "@/components/layout/Loader";
 
 const FormSchema = z.object({
   name: z
@@ -52,7 +52,7 @@ const Register = () => {
   }
   
   return (
-    <section>
+    <section className="w-full">
       {isPending ? <Loader/> : null}
         <img src={registerImage} alt="img1" width="400px" className="hidden md:flex animate-slide-down"/>
         <Card className='animate-slide-up flex justify-center items-center mx-4 w-5/6 md:w-[450px] mb-4 h-[500px] md:h-[500px] shadow-none md:shadow-lg border-none '>

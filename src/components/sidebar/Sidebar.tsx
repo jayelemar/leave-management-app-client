@@ -1,25 +1,20 @@
 import React, { FC } from 'react'
-import SidebarHeader from './SidebarHeader';
+
 import SidebarList from './SidebarList';
-import { useSidebarStore } from '@/store/sidebarStore';
-import MobileNav from '../mobile/MobileNav';
+import SidebarHeader from './SidebarHeader';
+
 
 type SidebarProps = {
   children: React.ReactNode
 }
 
 const Sidebar:FC<SidebarProps> = ({ children }) => {
-  const isOpen = useSidebarStore().isOpen
+
 
   return (
     <nav className={`relative w-full flex`}>
-      <div className="lg:hidden">
-      <MobileNav/>
-      </div>
-
-
-      <div className={`flex-col  min-h-[100vh] bg-slate-100 
-          top-0 left-0 hidden lg:flex  flex-shrink-0 transition-all duration-500 ease-ou 
+      <div className={`flex-col  min-h-[100vh] bg-slate-700
+          top-0 left-0 hidden lg:flex  flex-shrink-0 transition-all duration-500 ease-out 
           w-64`}
       >
 
@@ -29,13 +24,13 @@ const Sidebar:FC<SidebarProps> = ({ children }) => {
           <SidebarHeader  />
         </div>
 
-        <div>
+        <div className='mt-6'>
           <SidebarList />
         </div>
 
       </div>
 
-      <div className={`top-0 w-full ${isOpen ? 'left-60' : 'left-0 lg:left-12' } `}>
+      <div className={`top-0 w-full 'left-60' : 'left-0 lg:left-12' } `}>
         {children}
       </div>
 

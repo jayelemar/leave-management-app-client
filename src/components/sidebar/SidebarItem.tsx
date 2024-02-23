@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import { ItemProps } from './SidebarData'
 import { NavLink } from 'react-router-dom'
 import SidebarSubmenu from './SidebarSubmenu'
+import { useMobileNavStore } from '@/store/mobileNavStore'
 
 
 type SidebarItemProps = {
@@ -9,20 +10,22 @@ type SidebarItemProps = {
 }
 
 const SidebarItem:FC<SidebarItemProps> = ({ item}) => {
+  const setIsOpen = useMobileNavStore().setIsOpen
   const [expandMenu, setExpandMenu] = useState(false)
 
   const toggleMenu = () => {
     setExpandMenu(!expandMenu);
-
   }
 
   return (
-    <li key={item.path}>
+    <li key={item.path} className=''>
       {item.children ? (
         <SidebarSubmenu item={item} toggleMenu={toggleMenu} />
       ) : (
-        <NavLink to={item.path ?? '/'}
-          className={`flex gap-2  p-2  bg-opacity-10 transition duration-150 ease-in-out cursor-pointer border-b-2 pl-3  hover:bg-slate-500 m-1 rounded-lg hover:text-yellow-50`}
+        <NavLink 
+          to={item.path ?? '/'}
+          className={({ isActive}) =>  isActive ? 'bg-slate-400  flex gap-2 my-2 p-2 cursor-pointer pl-2 text-lg sideitem' : 'flex gap-2 my-2 p-2 cursor-pointer pl-2  sideitem' }
+          onClick={() => setIsOpen(false)}
         >
           {item.icon}
           {item.title}

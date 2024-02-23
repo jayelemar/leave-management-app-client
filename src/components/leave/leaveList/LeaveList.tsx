@@ -3,11 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { FC, lazy, useState } from "react"
 import { LeaveProps } from "@/types/leaveTypes"
 import ReactPaginate from 'react-paginate';
-import SelectStatus from "../selectStatus/SelectStatus"
+import SelectStatus from "../../common/SelectStatus"
+import LeaveTable from "../LeaveTable";
 
 
-const LeaveTable = lazy(() => import ("./LeaveTable"))
-const LeaveMobileTable = lazy(() => import ("./LeaveMobileTable"))
+
+const LeaveMobileTable = lazy(() => import ("../LeaveMobileTable"))
 
 
 interface LeaveListProps {
@@ -24,8 +25,6 @@ const LeaveList:FC<LeaveListProps> = ({ leaves }) => {
   const handlePageChange = ({selected}: {selected: number}) => {
     setCurrentPage(selected)
   };
-
-  
 
   if(!leaves) {
     return (
@@ -50,7 +49,6 @@ const LeaveList:FC<LeaveListProps> = ({ leaves }) => {
                   <div className="flex md:hidden w-full">
                     <LeaveMobileTable leaves={currentItems}/>
                   </div>
- 
                   {currentPage === 0 ? null : (
                     <ReactPaginate 
                       className="flex justify-center items-center gap-4 text-solidGreen"
