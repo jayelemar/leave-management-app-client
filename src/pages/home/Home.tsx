@@ -14,8 +14,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Label } from '@/components/ui/label'
 import { useLoginUser } from '@/services/authServices'
 import { toast as toastify } from 'react-toastify'
-import Loader from '@/components/loader/Loader'
+
 import { useAuthStore } from '@/store/authStore'
+import Loader from '@/components/loader/Loader'
 
 
 const FormSchema = z.object({
