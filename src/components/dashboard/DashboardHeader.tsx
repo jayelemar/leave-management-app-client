@@ -1,9 +1,9 @@
 
 
 import { MoreVertical } from "lucide-react";
-import Logo from "../layout/Logo";
+import Logo from "../common/Logo";
 import { useMobileNavStore } from "@/store/mobileNavStore";
-import MobileNav from "../common/MobileNav";
+import MobileNav from "../nav/MobileNav";
 
 function DashboardHeader() {
   const setIsOpen = useMobileNavStore().setIsOpen
