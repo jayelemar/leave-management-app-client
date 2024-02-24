@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { toast } from "react-toastify"
 
-const BACKEND_URL: string = import.meta.env.VITE_BACKEND_URL 
+const BACKEND_URL: string = import.meta.env.VITE_BACKEND_URL  || "http://localhost:8000"
 
 // Register User
 export const useRegisterUser = () => {
@@ -141,6 +141,7 @@ export const useGetLoginStatus = () => {
   const getLoginStatus = async () => {
     try {
       const response = await axios.get(`${BACKEND_URL}/api/users/loggedin`)
+      console.log("Backend URL:", BACKEND_URL);
       return response.data || {}
     } catch (error) {
       if (axios.isAxiosError(error)) {
