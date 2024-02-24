@@ -24,7 +24,7 @@ const SidebarItem:FC<SidebarItemProps> = ({ item}) => {
       ) : (
         <NavLink 
           to={item.path ?? '/'}
-          className={({ isActive}) =>  isActive ? 'bg-slate-400  flex gap-2 my-2 p-2 cursor-pointer pl-2 text-lg sideitem' : 'flex gap-2 my-2 p-2 cursor-pointer pl-2  sideitem' }
+          className={({ isActive}) =>  isActive ? 'bg-slate-300 text-muted-foreground  flex gap-2 my-2 p-2 cursor-pointer pl-2 text-lg sideitem' : 'flex gap-2 my-2 p-2 cursor-pointer pl-2  sideitem text-muted-foreground' }
           onClick={() => setIsOpen(false)}
         >
           {item.icon}

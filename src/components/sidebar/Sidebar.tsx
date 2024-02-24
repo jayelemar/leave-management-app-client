@@ -12,13 +12,13 @@ const Sidebar:FC<SidebarProps> = ({ children }) => {
 
 
   return (
-    <nav className={`relative w-full flex`}>
-      <div className={`flex-col  min-h-[100vh] bg-slate-700
+    <nav className={`relative w-full flex `}>
+      <div className={`flex-col  min-h-[100vh] 
           top-0 left-0 hidden lg:flex  flex-shrink-0 transition-all duration-500 ease-out 
-          w-64`}
+          w-64 border border-r-slate-300`}
       >
 
-        <div className={`flex justify-between items-center h-16 overflow-hidden bg-slate-700 flex-shrink-0
+        <div className={`flex justify-between items-center h-16 overflow-hidden  flex-shrink-0
           transition-all duration-500 ease-out w-full text-yellow-50`}
         >
           <SidebarHeader  />
