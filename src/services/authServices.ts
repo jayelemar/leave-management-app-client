@@ -32,7 +32,7 @@ export const useRegisterUser = () => {
     mutationFn: registerUser,
   })
 }
-
+ 
 // Login User
 export const useLoginUser = () => {
   const loginUser = async (data: LoginUser) => {
