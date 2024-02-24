@@ -151,7 +151,7 @@ export const useGetLoginStatus = () => {
             error.response.data.message) ||
           error.message ||
           "An unexpected error occurred during login.";
-        console.error("Server response:", message);
+        // console.error("Server response:", message);
         return false;
         toast.error(message);
       } else {

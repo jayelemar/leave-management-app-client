@@ -54,7 +54,7 @@ const Home: FC= () => {
       navigate("/dashboard")
 
     } catch (error) {
-      console.error("Registration failed", error);
+      console.error("Login failed", error);
 
     }
 
