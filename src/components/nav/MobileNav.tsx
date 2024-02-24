@@ -15,7 +15,7 @@ const MobileNav = () => {
   };
 
   return (
-    <div className="z-50">
+    <div className="z-50 b">
       <Sheet open={isOpen} onOpenChange={handleNavClick}>
         <SheetContent side={'right'}>
           <SheetHeader>

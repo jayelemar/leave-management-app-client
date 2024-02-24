@@ -9,7 +9,7 @@ const SidebarList: FC = () => {
 
 
   return (
-    <ul className='bg-slate-700
+    <ul className='
     text-yellow-50'>
       {items.map((item: ItemProps) => {
         return (
