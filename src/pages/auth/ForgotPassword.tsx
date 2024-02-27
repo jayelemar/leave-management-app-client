@@ -1,19 +1,18 @@
 import { FC, useEffect, useRef } from 'react'
-import { toast } from '@/components/ui/use-toast'
+
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Button } from '@/components/ui/button'
-
 import { Card } from '@/components/ui/card'
 import  ForgotImage from '@/assets/forget.svg'
-
 import { Label } from '@/components/ui/label'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForgotPassword } from '@/services/authServices'
 import { ChevronLeft } from 'lucide-react'
+
 
 const FormSchema = z.object({
   email: z
@@ -36,14 +35,6 @@ const ForgotPassword: FC = () => {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
 
     try {
       await ForgotPasswordMutation(data)

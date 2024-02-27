@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { toast } from "@/components/ui/use-toast"
 import { useResetPassword } from "@/services/authServices"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ChevronLeft, Eye, EyeOff } from "lucide-react"
@@ -33,14 +32,6 @@ const ResetPassword = () => {
   })
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
 
     if (resetToken !== undefined) {
       const response = await ResetPasswordMutation({ data, resetToken });
